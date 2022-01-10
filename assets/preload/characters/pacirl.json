@@ -59,8 +59,8 @@
 	"no_antialiasing": true,
 	"image": "pac/pacman",
 	"position": [
-		0,
-		530
+		220,
+		540
 	],
 	"healthicon": "bf",
 	"flip_x": false,
@@ -71,7 +71,7 @@
 	],
 	"camera_position": [
 		-330,
-		-190
+		-300
 	],
 	"sing_duration": 4,
 	"scale": 10
