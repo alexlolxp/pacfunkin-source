@@ -209,6 +209,7 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	var pacbg:BGSprite;
+	var border:BGSprite;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -217,6 +218,9 @@ class PlayState extends MusicBeatState
 	public var scoreTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+
+	public var retroScore:FlxText;
+	public var ghostlyhealth:Int = 2;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -634,7 +638,15 @@ class PlayState extends MusicBeatState
 				pacbg.setGraphicSize(Std.int(pacbg.width * 6));
 				pacbg.updateHitbox();
 				pacbg.screenCenter();
-				add(pacbg);
+				add(pacbg); 
+
+				border = new BGSprite('pac/background/border', 0, 0, 1, 1);
+				border.scrollFactor.set(1, 1);
+				border.antialiasing = false;
+				border.setGraphicSize(Std.int(border.width * 6));
+				border.updateHitbox();
+				border.screenCenter();
+				add(border);
 		}
 
 		if(isPixelStage) {
@@ -907,6 +919,12 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		retroScore = new FlxText(1150, 25,FlxG.width, "", 20);
+		retroScore.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, null, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		retroScore.scrollFactor.set();
+		retroScore.borderSize = 1.25;
+		retroScore.visible = !ClientPrefs.hideHud;
+
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
@@ -925,6 +943,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		retroScore.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -1828,6 +1847,26 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onUpdate', [elapsed]);
 
+		if (ghostlyhealth == 2)
+		{
+			boyfriend.color = 0xffffffff;
+		}
+		if (ghostlyhealth == 1)
+		{
+			boyfriend.color = 0xff31a2fd;
+		}
+		if (ghostlyhealth == 1)
+		{
+			new FlxTimer().start(2, function(swagTimer:FlxTimer)
+			{
+				ghostlyhealth++;
+			});
+		}
+		if (ghostlyhealth <= 0)
+		{
+			health = -1000;
+		}
+
 		switch (curStage)
 		{
 			case 'schoolEvil':
@@ -1939,9 +1978,18 @@ class PlayState extends MusicBeatState
 					}
 				}
 			case 'pacbg':
-				camFollow.x = 1000;
-				camFollow.y = 0;
+				camFollow.x = pacbg.width / 2 + 150;
+				camFollow.y = pacbg.height / 2 + 100;
 				gf.visible = false;
+				healthBarBG.alpha = 0;
+				healthBar.alpha = 0;
+				iconP1.alpha = 0;
+				iconP2.alpha = 0;
+				scoreTxt.alpha = 0;
+				timeBar.alpha = 0;
+				timeBarBG.alpha = 0;
+				timeTxt.alpha = 0;
+				add(retroScore);
 		}
 
 		if(!inCutscene) {
@@ -1961,8 +2009,10 @@ class PlayState extends MusicBeatState
 
 		if(ratingString == '?') {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingString;
+			retroScore.text = '0%';
 		} else {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
+			retroScore.text = Math.floor(ratingPercent * 100.00) + '%';
 		}
 
 		if(cpuControlled) {
@@ -2382,7 +2432,8 @@ class PlayState extends MusicBeatState
 	}
 
 	var isDead:Bool = false;
-	function doDeathCheck() {
+	function doDeathCheck() 
+	{
 		if (health <= 0 && !practiceMode && !isDead)
 		{
 			var ret:Dynamic = callOnLuas('onGameOver', []);
@@ -3042,6 +3093,12 @@ class PlayState extends MusicBeatState
 
 		var daRating:String = "sick";
 
+		if (curStage == 'pacbg')
+		{
+			coolText.x += 10000;
+			rating.x += 10000;
+		}
+
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'shit';
@@ -3334,6 +3391,7 @@ class PlayState extends MusicBeatState
 		health -= daNote.missHealth; //For testing purposes
 		trace(daNote.missHealth);
 		songMisses++;
+		ghostlyhealth--;
 		vocals.volume = 0;
 		RecalculateRating();
 
@@ -3376,6 +3434,7 @@ class PlayState extends MusicBeatState
 			if(!endingSong) {
 				if(ghostMiss) ghostMisses++;
 				songMisses++;
+				ghostlyhealth--;
 			}
 			RecalculateRating();
 

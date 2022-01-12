@@ -1,37 +1,48 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				-3,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "idle",
 			"loop": false,
-			"name": "idlenote"
-		},
-		{
 			"offsets": [
 				-3,
 				0
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "leftnote"
+			"fps": 24,
+			"name": "leftnote",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-4,
 				1
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singDOWN",
+			"fps": 24,
+			"name": "downnote",
+			"indices": []
+		},
+		{
 			"loop": false,
-			"name": "downnote"
+			"offsets": [
+				-3,
+				0
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "upnote",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-2,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "rightnote",
+			"indices": []
 		},
 		{
 			"offsets": [
@@ -39,24 +50,13 @@
 				0
 			],
 			"indices": [],
-			"fps": 24,
-			"anim": "singUP",
+			"fps": 10,
+			"anim": "idle",
 			"loop": false,
-			"name": "upnote"
-		},
-		{
-			"offsets": [
-				-2,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT",
-			"loop": false,
-			"name": "rightnote"
+			"name": "idlenote"
 		}
 	],
-	"no_antialiasing": false,
+	"no_antialiasing": true,
 	"image": "pac/pacman",
 	"position": [
 		0,
@@ -74,5 +74,5 @@
 		130
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 3
 }
