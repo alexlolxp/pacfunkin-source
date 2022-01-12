@@ -1847,15 +1847,16 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onUpdate', [elapsed]);
 
-		if (ghostlyhealth == 2)
+		if (boyfriend.animation.curAnim.name == 'singRIGHTmiss' || boyfriend.animation.curAnim.name == 'singLEFTmiss' || boyfriend.animation.curAnim.name == 'singUPmiss' || boyfriend.animation.curAnim.name == 'singDOWNmiss')
 		{
-			boyfriend.color = 0xffffffff;
+			FlxTween.color(boyfriend, 0.0000001, boyfriend.color, 0xff31a2fd, {onComplete: function(twn:FlxTween) {
+				new FlxTimer().start(2, function(swagTimer:FlxTimer)
+				{
+					FlxTween.color(boyfriend, 0.0000001, boyfriend.color, 0xffffffff);
+				});
+			}});
 		}
-		if (ghostlyhealth == 1)
-		{
-			boyfriend.color = 0xff31a2fd;
-		}
-		if (ghostlyhealth == 1)
+		if (ghostlyhealth < 2)
 		{
 			new FlxTimer().start(2, function(swagTimer:FlxTimer)
 			{
