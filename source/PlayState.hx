@@ -208,6 +208,8 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
+	var pacbg:BGSprite;
+
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -625,6 +627,14 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
+			case 'pacbg':
+				pacbg = new BGSprite('pac/background/bg', 0, 0, 1, 1);
+				pacbg.scrollFactor.set(1, 1);
+				pacbg.antialiasing = false;
+				pacbg.setGraphicSize(Std.int(pacbg.width * 6));
+				pacbg.updateHitbox();
+				pacbg.screenCenter();
+				add(pacbg);
 		}
 
 		if(isPixelStage) {
@@ -1928,6 +1938,10 @@ class PlayState extends MusicBeatState
 						heyTimer = 0;
 					}
 				}
+			case 'pacbg':
+				camFollow.x = 1000;
+				camFollow.y = 0;
+				gf.visible = false;
 		}
 
 		if(!inCutscene) {
