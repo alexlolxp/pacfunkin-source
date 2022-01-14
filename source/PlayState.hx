@@ -209,6 +209,7 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	var pacbg:BGSprite;
+	var pacfloor:BGSprite;
 	var border:BGSprite;
 
 	public var songScore:Int = 0;
@@ -221,6 +222,7 @@ class PlayState extends MusicBeatState
 
 	public var retroScore:FlxText;
 	public var ghostlyhealth:Int = 2;
+	public var invincible:Bool = false;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -632,20 +634,28 @@ class PlayState extends MusicBeatState
 					add(bg);
 				}
 			case 'pacbg':
-				pacbg = new BGSprite('pac/background/bg', 0, 0, 1, 1);
+				pacbg = new BGSprite('pac/background/background', 0, 0);
 				pacbg.scrollFactor.set(1, 1);
 				pacbg.antialiasing = false;
-				pacbg.setGraphicSize(Std.int(pacbg.width * 6));
+				pacbg.setGraphicSize(Std.int(pacbg.width * 3.55));
 				pacbg.updateHitbox();
 				pacbg.screenCenter();
 				add(pacbg); 
 
+				pacfloor = new BGSprite('pac/background/epicflooring', 0, 0);
+				pacfloor.scrollFactor.set(1, 1);
+				pacfloor.antialiasing = false;
+				pacfloor.setGraphicSize(Std.int(pacfloor.width * 3.55));
+				pacfloor.updateHitbox();
+				pacfloor.screenCenter();
+				add(pacfloor); 
+
 				border = new BGSprite('pac/background/border', 0, 0, 1, 1);
 				border.scrollFactor.set(1, 1);
 				border.antialiasing = false;
-				border.setGraphicSize(Std.int(border.width * 6));
-				border.updateHitbox();
 				border.screenCenter();
+				border.visible = false;
+				border.updateHitbox();
 				add(border);
 		}
 
@@ -913,7 +923,7 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -1979,14 +1989,14 @@ class PlayState extends MusicBeatState
 					}
 				}
 			case 'pacbg':
-				camFollow.x = pacbg.width / 2 + 150;
-				camFollow.y = pacbg.height / 2 + 100;
+				camFollow.x = 640;
+				camFollow.y = 360;
 				gf.visible = false;
 				healthBarBG.alpha = 0;
 				healthBar.alpha = 0;
 				iconP1.alpha = 0;
 				iconP2.alpha = 0;
-				scoreTxt.alpha = 0;
+				scoreTxt.alpha = 100;
 				timeBar.alpha = 0;
 				timeBarBG.alpha = 0;
 				timeTxt.alpha = 0;
@@ -2009,10 +2019,10 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		if(ratingString == '?') {
-			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingString;
+			scoreTxt.text = 'Highscore: ' + songScore;
 			retroScore.text = '0%';
 		} else {
-			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
+			scoreTxt.text = 'Highscore: ' + songScore;
 			retroScore.text = Math.floor(ratingPercent * 100.00) + '%';
 		}
 

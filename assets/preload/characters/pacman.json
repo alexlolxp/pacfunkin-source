@@ -15,7 +15,7 @@
 			"loop": false,
 			"offsets": [
 				-4,
-				1
+				-1
 			],
 			"anim": "singDOWN",
 			"fps": 24,
@@ -49,10 +49,10 @@
 				-3,
 				0
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 10,
 			"anim": "idle",
-			"loop": false,
+			"indices": [],
 			"name": "idlenote"
 		}
 	],
@@ -70,8 +70,8 @@
 		209
 	],
 	"camera_position": [
-		-90,
-		130
+		0,
+		-100
 	],
 	"sing_duration": 4,
 	"scale": 3

@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				-6,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 10,
-			"name": "idlenote",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "idlenote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "leftnote",
-			"indices": []
+			"indices": [],
+			"name": "leftnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-6,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "downnote",
-			"indices": []
+			"indices": [],
+			"name": "downnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-6,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "upnote",
-			"indices": []
+			"indices": [],
+			"name": "upnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "rightnote",
-			"indices": []
+			"indices": [],
+			"name": "rightnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFTmiss",
-			"fps": 24,
-			"name": "missnote",
-			"indices": []
+			"indices": [],
+			"name": "missnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWNmiss",
-			"fps": 24,
-			"name": "missnote",
-			"indices": []
+			"indices": [],
+			"name": "missnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUPmiss",
-			"fps": 24,
-			"name": "missnote",
-			"indices": []
+			"indices": [],
+			"name": "missnote"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-7,
 				0
 			],
-			"anim": "singRIGHTmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "missnote",
-			"indices": []
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "missnote"
 		}
 	],
 	"no_antialiasing": true,
@@ -114,8 +114,8 @@
 		209
 	],
 	"camera_position": [
-		-100,
-		100
+		0,
+		-100
 	],
 	"sing_duration": 4,
 	"scale": 3
