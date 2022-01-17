@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="redghost.png">
+	<!-- Created with Adobe Animate version 21.0.6.41649 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="redghostmovement0000" x="0" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0001" x="175" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0002" x="350" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0003" x="525" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0004" x="700" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0005" x="875" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0006" x="1050" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0007" x="1225" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0008" x="1400" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0009" x="1575" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0010" x="1750" y="0" width="160" height="81"/>
+	<SubTexture name="redghostmovement0011" x="0" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0012" x="175" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0013" x="350" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0014" x="525" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0015" x="700" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0016" x="875" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0017" x="1050" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0018" x="1225" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0019" x="1400" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0020" x="1575" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0021" x="1750" y="96" width="160" height="81"/>
+	<SubTexture name="redghostmovement0022" x="0" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0023" x="175" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0024" x="350" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0025" x="525" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0026" x="700" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0027" x="875" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0028" x="1050" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0029" x="1225" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0030" x="1400" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0031" x="1575" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0032" x="1750" y="192" width="160" height="81"/>
+	<SubTexture name="redghostmovement0033" x="0" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0034" x="175" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0035" x="350" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0036" x="525" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0037" x="700" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0038" x="875" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0039" x="1050" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0040" x="1225" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0041" x="1400" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0042" x="1575" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0043" x="1750" y="288" width="160" height="81"/>
+	<SubTexture name="redghostmovement0044" x="0" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0045" x="175" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0046" x="350" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0047" x="525" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0048" x="700" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0049" x="875" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0050" x="1050" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0051" x="1225" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0052" x="1400" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0053" x="1575" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0054" x="1750" y="384" width="160" height="81"/>
+	<SubTexture name="redghostmovement0055" x="0" y="480" width="160" height="81"/>
+	<SubTexture name="redghostmovement0056" x="175" y="480" width="160" height="81"/>
+	<SubTexture name="redghostmovement0057" x="350" y="480" width="160" height="81"/>
+	<SubTexture name="redghostmovement0058" x="525" y="480" width="160" height="81"/>
+	<SubTexture name="redghostmovement0059" x="700" y="480" width="160" height="81"/>
+</TextureAtlas>
