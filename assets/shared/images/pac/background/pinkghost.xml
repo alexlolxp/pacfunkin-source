@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="pinkghost.png">
+	<!-- Created with Adobe Animate version 21.0.6.41649 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="pinkghostmovement0000" x="0" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0001" x="175" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0002" x="350" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0003" x="525" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0004" x="700" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0005" x="875" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0006" x="1050" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0007" x="1225" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0008" x="1400" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0009" x="1575" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0010" x="1750" y="0" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0011" x="0" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0012" x="175" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0013" x="350" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0014" x="525" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0015" x="700" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0016" x="875" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0017" x="1050" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0018" x="1225" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0019" x="1400" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0020" x="1575" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0021" x="1750" y="98" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0022" x="0" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0023" x="175" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0024" x="350" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0025" x="525" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0026" x="700" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0027" x="875" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0028" x="1050" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0029" x="1225" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0030" x="1400" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0031" x="1575" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0032" x="1750" y="196" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0033" x="0" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0034" x="175" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0035" x="350" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0036" x="525" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0037" x="700" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0038" x="875" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0039" x="1050" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0040" x="1225" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0041" x="1400" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0042" x="1575" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0043" x="1750" y="294" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0044" x="0" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0045" x="175" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0046" x="350" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0047" x="525" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0048" x="700" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0049" x="875" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0050" x="1050" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0051" x="1225" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0052" x="1400" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0053" x="1575" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0054" x="1750" y="392" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0055" x="0" y="490" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0056" x="175" y="490" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0057" x="350" y="490" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0058" x="525" y="490" width="160" height="83"/>
+	<SubTexture name="pinkghostmovement0059" x="700" y="490" width="160" height="83"/>
+</TextureAtlas>

@@ -209,7 +209,11 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	var pacbg:BGSprite;
+	var pacredghost:BGSprite;
+	var paccyanghost:BGSprite;
+	var pacpinkghost:BGSprite;
 	var pacfloor:BGSprite;
+	var pacclydeghost:BGSprite;
 	var border:BGSprite;
 
 	public var songScore:Int = 0;
@@ -641,6 +645,46 @@ class PlayState extends MusicBeatState
 				pacbg.updateHitbox();
 				pacbg.screenCenter();
 				add(pacbg); 
+
+				pacredghost = new BGSprite('pac/background/redghost', 0, 0, ['redghostmovement']);
+				pacredghost.animation.addByPrefix('idle', 'redghostmovement', 25, true);
+				pacredghost.animation.play('idle');
+				pacredghost.setGraphicSize(Std.int(pacredghost.width * 3.55));
+				pacredghost.updateHitbox();
+				pacredghost.antialiasing = false;
+				pacredghost.scrollFactor.set(1, 1);
+				pacredghost.screenCenter();
+				add(pacredghost);
+
+				paccyanghost = new BGSprite('pac/background/cyanghost', 0, 0, ['cyanghostmovement']);
+				paccyanghost.animation.addByPrefix('idle', 'cyanghostmovement', 25, true);
+				paccyanghost.animation.play('idle');
+				paccyanghost.setGraphicSize(Std.int(paccyanghost.width * 3.55));
+				paccyanghost.updateHitbox();
+				paccyanghost.antialiasing = false;
+				paccyanghost.scrollFactor.set(1, 1);
+				paccyanghost.screenCenter();
+				add(paccyanghost);
+
+				pacpinkghost = new BGSprite('pac/background/pinkghost', 0, 0, ['pinkghostmovement']);
+				pacpinkghost.animation.addByPrefix('idle', 'pinkghostmovement', 25, true);
+				pacpinkghost.animation.play('idle');
+				pacpinkghost.setGraphicSize(Std.int(pacpinkghost.width * 3.55));
+				pacpinkghost.updateHitbox();
+				pacpinkghost.antialiasing = false;
+				pacpinkghost.scrollFactor.set(1, 1);
+				pacpinkghost.screenCenter();
+				add(pacpinkghost);
+
+				pacclydeghost = new BGSprite('pac/background/orangeghost', 0, 0, ['orangeghostmovement']);
+				pacclydeghost.animation.addByPrefix('idle', 'orangeghostmovement', 25, true);
+				pacclydeghost.animation.play('idle');
+				pacclydeghost.setGraphicSize(Std.int(pacclydeghost.width * 3.55));
+				pacclydeghost.updateHitbox();
+				pacclydeghost.antialiasing = false;
+				pacclydeghost.scrollFactor.set(1, 1);
+				pacclydeghost.screenCenter();
+				add(pacclydeghost);
 
 				pacfloor = new BGSprite('pac/background/epicflooring', 0, 0);
 				pacfloor.scrollFactor.set(1, 1);
