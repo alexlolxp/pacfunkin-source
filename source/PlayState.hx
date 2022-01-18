@@ -225,6 +225,7 @@ class PlayState extends MusicBeatState
 	var scoreTxtTween:FlxTween;
 
 	public var retroScore:FlxText;
+	public var songNameTxt:FlxText;
 	public var ghostlyhealth:Int = 2;
 	public var invincible:Bool = false;
 
@@ -299,11 +300,11 @@ class PlayState extends MusicBeatState
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (isStoryMode)
+		/*if (isStoryMode)
 		{
 			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
-		}
-		else
+		}*/
+		if (!isStoryMode)
 		{
 			detailsText = "Freeplay";
 		}
@@ -654,6 +655,7 @@ class PlayState extends MusicBeatState
 				pacredghost.antialiasing = false;
 				pacredghost.scrollFactor.set(1, 1);
 				pacredghost.screenCenter();
+				pacredghost.visible = !ClientPrefs.hideGhosts;
 				add(pacredghost);
 
 				paccyanghost = new BGSprite('pac/background/cyanghost', 0, 0, ['cyanghostmovement']);
@@ -664,6 +666,7 @@ class PlayState extends MusicBeatState
 				paccyanghost.antialiasing = false;
 				paccyanghost.scrollFactor.set(1, 1);
 				paccyanghost.screenCenter();
+				paccyanghost.visible = !ClientPrefs.hideGhosts;
 				add(paccyanghost);
 
 				pacpinkghost = new BGSprite('pac/background/pinkghost', 0, 0, ['pinkghostmovement']);
@@ -674,6 +677,7 @@ class PlayState extends MusicBeatState
 				pacpinkghost.antialiasing = false;
 				pacpinkghost.scrollFactor.set(1, 1);
 				pacpinkghost.screenCenter();
+				pacpinkghost.visible = !ClientPrefs.hideGhosts;
 				add(pacpinkghost);
 
 				pacclydeghost = new BGSprite('pac/background/orangeghost', 0, 0, ['orangeghostmovement']);
@@ -684,6 +688,7 @@ class PlayState extends MusicBeatState
 				pacclydeghost.antialiasing = false;
 				pacclydeghost.scrollFactor.set(1, 1);
 				pacclydeghost.screenCenter();
+				pacclydeghost.visible = !ClientPrefs.hideGhosts;
 				add(pacclydeghost);
 
 				pacfloor = new BGSprite('pac/background/epicflooring', 0, 0);
@@ -846,7 +851,7 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font("emulogic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -872,7 +877,6 @@ class PlayState extends MusicBeatState
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
 		add(timeBar);
-		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
@@ -972,6 +976,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
+		add(timeTxt);
 
 		retroScore = new FlxText(1150, 25,FlxG.width, "", 20);
 		retroScore.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, null, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -979,8 +984,15 @@ class PlayState extends MusicBeatState
 		retroScore.borderSize = 1.25;
 		retroScore.visible = !ClientPrefs.hideHud;
 
+		songNameTxt = new FlxText(0, 25, FlxG.width, "", 20);
+		songNameTxt.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, null, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songNameTxt.scrollFactor.set();
+		songNameTxt.borderSize = 1.25;
+		songNameTxt.text = SONG.song;
+		songNameTxt.visible = !ClientPrefs.hideHud;
+
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
@@ -998,6 +1010,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		retroScore.cameras = [camHUD];
+		songNameTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -1534,7 +1547,7 @@ class PlayState extends MusicBeatState
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		//FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
@@ -2040,11 +2053,11 @@ class PlayState extends MusicBeatState
 				healthBar.alpha = 0;
 				iconP1.alpha = 0;
 				iconP2.alpha = 0;
-				scoreTxt.alpha = 100;
 				timeBar.alpha = 0;
 				timeBarBG.alpha = 0;
-				timeTxt.alpha = 0;
+				timeTxt.alpha = 1;
 				add(retroScore);
+				add(songNameTxt);
 		}
 
 		if(!inCutscene) {
@@ -3021,7 +3034,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
+					MusicBeatState.switchState(new MainMenuState());
 
 					// if ()
 					if(!usedPractice) {

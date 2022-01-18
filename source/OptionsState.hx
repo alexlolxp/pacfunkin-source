@@ -1,5 +1,6 @@
 package;
 
+import haxe.macro.Expr.Case;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -690,8 +691,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Flashing Lights',
 		'Camera Zooms'
 		#if !mobile
-		,'FPS Counter'
+		,'FPS Counter',
 		#end
+		'Hide Ghosts',
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -876,6 +878,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 					
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
+					case 'Hide Ghosts':
+						ClientPrefs.hideGhosts = !ClientPrefs.hideGhosts;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -969,6 +973,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, hides most HUD elements.";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
+			case 'Hide Ghosts':
+				daText = "If checked, will hide ghosts on the pacman stage";
 		}
 		descText.text = daText;
 
@@ -1041,6 +1047,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.imagesPersist;
 					case 'Hide Song Length':
 						daValue = ClientPrefs.hideTime;
+					case 'Hide Ghosts':
+						daValue = ClientPrefs.hideGhosts;
 				}
 				checkbox.daValue = daValue;
 			}

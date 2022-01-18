@@ -209,7 +209,12 @@ class MainMenuState extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
+										PlayState.SONG = Song.loadFromJson(Highscore.formatSong('Pellets', 2), 'pellets');
+										PlayState.isStoryMode = true;
+										PlayState.storyWeek = 1;
+										PlayState.storyDifficulty = 2;
+										PlayState.storyPlaylist = ['Pellets', 'Mazes'];
+										LoadingState.loadAndSwitchState(new PlayState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
 									case 'awards':
