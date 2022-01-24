@@ -2049,6 +2049,7 @@ class PlayState extends MusicBeatState
 				camFollow.x = 640;
 				camFollow.y = 360;
 				gf.visible = false;
+				gf.screenCenter();
 				healthBarBG.alpha = 0;
 				healthBar.alpha = 0;
 				iconP1.alpha = 0;
@@ -2056,6 +2057,7 @@ class PlayState extends MusicBeatState
 				timeBar.alpha = 0;
 				timeBarBG.alpha = 0;
 				timeTxt.alpha = 1;
+				camHUD.antialiasing = false;
 				add(retroScore);
 				add(songNameTxt);
 		}
@@ -2076,7 +2078,7 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		if(ratingString == '?') {
-			scoreTxt.text = 'Highscore: ' + songScore;
+			scoreTxt.text = 'Highscore: N/A';
 			retroScore.text = '0%';
 		} else {
 			scoreTxt.text = 'Highscore: ' + songScore;
@@ -3197,11 +3199,11 @@ class PlayState extends MusicBeatState
 			}
 			scoreTxt.scale.x = 1.1;
 			scoreTxt.scale.y = 1.1;
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
+			/*scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
 				}
-			});
+			});*/
 		}
 
 		/* if (combo > 60)
