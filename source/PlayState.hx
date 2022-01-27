@@ -848,10 +848,10 @@ class PlayState extends MusicBeatState
 		doof.nextDialogueThing = startNextDialogue;
 		doof.skipDialogueThing = skipDialogue;
 
-		pacTextCountdown = new FlxText(0, 0, 400, null, 32);
-		pacTextCountdown.setFormat(Paths.font("emulogic.ttf"), 32, FlxColor.YELLOW, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		pacTextCountdown = new FlxText(0, 325, 400, null, 32);
+		pacTextCountdown.setFormat(Paths.font("emulogic.ttf"), 27, FlxColor.YELLOW, CENTER);
 		pacTextCountdown.scrollFactor.set();
-		pacTextCountdown.screenCenter();
+		pacTextCountdown.screenCenter(X);
 		pacTextCountdown.visible = false;
 		pacTextCountdown.text = 'READY!';
 		add(pacTextCountdown);
@@ -868,6 +868,7 @@ class PlayState extends MusicBeatState
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
 		timeTxt.visible = !ClientPrefs.hideTime;
+		timeTxt.antialiasing = false;
 		if(ClientPrefs.downScroll) timeTxt.y = FlxG.height - 45;
 
 		timeBarBG = new AttachedSprite('timeBar');
@@ -987,6 +988,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
+		scoreTxt.antialiasing = false;
 		add(scoreTxt);
 		add(timeTxt);
 
@@ -995,6 +997,7 @@ class PlayState extends MusicBeatState
 		retroScore.scrollFactor.set();
 		retroScore.borderSize = 1.25;
 		retroScore.visible = !ClientPrefs.hideHud;
+		retroScore.antialiasing = false;
 
 		songNameTxt = new FlxText(0, 25, FlxG.width, "", 20);
 		songNameTxt.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, null, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1002,6 +1005,7 @@ class PlayState extends MusicBeatState
 		songNameTxt.borderSize = 1.25;
 		songNameTxt.text = SONG.song;
 		songNameTxt.visible = !ClientPrefs.hideHud;
+		songNameTxt.antialiasing = false;
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("emulogic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1128,19 +1132,28 @@ class PlayState extends MusicBeatState
 			switch (daSong)
 			{
 				case 'pellets' | 'mazes':
-					camHUD.visible = false;
-					camFollow.x = 640;
-					camFollow.y = 360;
-					inCutscene = true;
-					FlxG.sound.play(Paths.sound('pactheme'), 1);
-					pacTextCountdown.visible = true;
-					new FlxTimer().start(4, function(swagTimer:FlxTimer)
-					{
-						pacTextCountdown.visible = false;
-						inCutscene = false;
-						paused = false;
-						camHUD.visible = true;
-					});
+					if (!ClientPrefs.skipCountdown){
+						camHUD.visible = false;
+						inCutscene = true;
+						FlxG.sound.play(Paths.sound('pactheme'), 1);
+						pacTextCountdown.visible = true;
+						snapCamFollowToPos(640, 360);
+						pacclydeghost.visible = false;
+						paccyanghost.visible = false;
+						pacpinkghost.visible = false;
+						pacredghost.visible = false;
+						isPacBg = true;
+						new FlxTimer().start(4.5, function(swagTimer:FlxTimer)
+						{
+							pacTextCountdown.visible = false;
+							inCutscene = false;
+							paused = false;
+							camHUD.visible = true;
+							pacclydeghost.visible = true;
+							paccyanghost.visible = true;
+							pacpinkghost.visible = true;
+							pacredghost.visible = true;
+						});}
 				default:
 					startCountdown();	
 			}
@@ -1149,7 +1162,6 @@ class PlayState extends MusicBeatState
 		startCountdown();
 		}
 		RecalculateRating();
-		
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
 		CoolUtil.precacheSound('missnote1');
@@ -1421,14 +1433,14 @@ class PlayState extends MusicBeatState
 
 			var swagCounter:Int = 0;
 
-			if (curStage == 'pacbg')
+			if (curStage == 'pacbg' && !ClientPrefs.skipCountdown)
 			{
-				new FlxTimer().start(4, function(swagTimer:FlxTimer)
+				new FlxTimer().start(4.5, function(swagTimer:FlxTimer)
 				{
 					startSong();
 				});
 			}
-			else
+			if (curStage != 'pacbg' && !ClientPrefs.skipCountdown)
 			{
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 			{
@@ -1557,6 +1569,13 @@ class PlayState extends MusicBeatState
 				swagCounter += 1;
 				// generateSong('fresh');
 			}, 5);
+			}
+			if (curStage == 'pacbg' && ClientPrefs.skipCountdown)
+			{
+				new FlxTimer().start(0.5, function(swagTimer:FlxTimer)
+					{
+						startSong();
+					});
 			}
 		}
 	}
@@ -1814,16 +1833,20 @@ class PlayState extends MusicBeatState
 
 	override function openSubState(SubState:FlxSubState)
 	{
-		if (paused && !isPacBg)
+		if (paused)
 		{
 			if (FlxG.sound.music != null)
 			{
 				FlxG.sound.music.pause();
 				vocals.pause();
 			}
+			
+			if (!isPacBg)
+			{
+				if (!startTimer.finished)
+					startTimer.active = false;
+			}
 
-			if (!startTimer.finished)
-				startTimer.active = false;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = false;
 
@@ -1854,7 +1877,7 @@ class PlayState extends MusicBeatState
 
 	override function closeSubState()
 	{
-		if (paused && !isPacBg)
+		if (paused)
 		{
 			if (FlxG.sound.music != null && !startingSong)
 			{
@@ -1863,8 +1886,12 @@ class PlayState extends MusicBeatState
 
 			updateTime = true;
 
-			if (!startTimer.finished)
-				startTimer.active = true;
+			if (!isPacBg)
+				{
+					if (!startTimer.finished)
+						startTimer.active = true;
+				}
+			
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = true;
 
@@ -1891,16 +1918,19 @@ class PlayState extends MusicBeatState
 			paused = false;
 			callOnLuas('onResume', []);
 
-			#if desktop
-			if (startTimer.finished)
+			if (!isPacBg)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				#if desktop
+				if (startTimer.finished)
+				{
+					DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				}
+				else
+				{
+					DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				}
+				#end
 			}
-			else
-			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-			}
-			#end
 		}
 
 		super.closeSubState();
@@ -2222,7 +2252,7 @@ class PlayState extends MusicBeatState
 
 		if (startingSong)
 		{
-			if (startedCountdown && !isPacBg)
+			if (startedCountdown && !isPacBg && !ClientPrefs.skipCountdown)
 			{
 				Conductor.songPosition += FlxG.elapsed * 1000;
 				if (Conductor.songPosition >= 0)

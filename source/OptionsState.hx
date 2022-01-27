@@ -694,6 +694,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		,'FPS Counter',
 		#end
 		'Hide Ghosts',
+		'Skip Countdown'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -880,7 +881,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 					case 'Hide Ghosts':
 						ClientPrefs.hideGhosts = !ClientPrefs.hideGhosts;
-				}
+					case 'Skip Countdown':
+						ClientPrefs.skipCountdown = !ClientPrefs.skipCountdown;
+					}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
 			}
@@ -975,6 +978,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 			case 'Hide Ghosts':
 				daText = "If checked, will hide ghosts on the pacman stage";
+			case 'Skip Countdown':
+				daText = "If checked, will skip the pacman countdown";
 		}
 		descText.text = daText;
 
@@ -1049,6 +1054,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.hideTime;
 					case 'Hide Ghosts':
 						daValue = ClientPrefs.hideGhosts;
+					case 'Skip Countdown':
+						daValue = ClientPrefs.skipCountdown;
 				}
 				checkbox.daValue = daValue;
 			}
