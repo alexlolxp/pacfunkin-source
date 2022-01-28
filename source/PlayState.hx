@@ -49,6 +49,7 @@ import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
+import flixel.effects.FlxFlicker;
 
 #if sys
 import sys.FileSystem;
@@ -229,6 +230,7 @@ class PlayState extends MusicBeatState
 	public var retroScore:FlxText;
 	public var songNameTxt:FlxText;
 	public var ghostlyhealth:Int = 2;
+	public var noteMissed:Bool = false;
 	public var invincible:Bool = false;
 
 	public static var campaignScore:Int = 0;
@@ -854,6 +856,7 @@ class PlayState extends MusicBeatState
 		pacTextCountdown.screenCenter(X);
 		pacTextCountdown.visible = false;
 		pacTextCountdown.text = 'READY!';
+		pacTextCountdown.antialiasing = false;
 		add(pacTextCountdown);
 
 		Conductor.songPosition = -5000;
@@ -1161,6 +1164,12 @@ class PlayState extends MusicBeatState
 		else{
 		startCountdown();
 		}
+
+		if (curStage == 'pacbg' && ClientPrefs.skipCountdown)
+		{
+			snapCamFollowToPos(640, 360);
+		}
+
 		RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
@@ -1812,9 +1821,11 @@ class PlayState extends MusicBeatState
 			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			if (!isStoryMode)
 			{
-				babyArrow.y -= 10;
-				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				if (curStage != 'pacbg'){
+					babyArrow.y -= 10;
+					babyArrow.alpha = 0;
+					FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				}
 			}
 
 			if (player == 1)
@@ -1991,25 +2002,38 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
+		noteMissed = false;
+
 		callOnLuas('onUpdate', [elapsed]);
 
-		if (boyfriend.animation.curAnim.name == 'singRIGHTmiss' || boyfriend.animation.curAnim.name == 'singLEFTmiss' || boyfriend.animation.curAnim.name == 'singUPmiss' || boyfriend.animation.curAnim.name == 'singDOWNmiss')
+		if (ghostlyhealth < 2 && curStage == 'pacbg')
 		{
-			FlxTween.color(boyfriend, 0.0000001, boyfriend.color, 0xff31a2fd, {onComplete: function(twn:FlxTween) {
-				new FlxTimer().start(2, function(swagTimer:FlxTimer)
-				{
-					FlxTween.color(boyfriend, 0.0000001, boyfriend.color, 0xffffffff);
-				});
-			}});
-		}
-		if (ghostlyhealth < 2)
-		{
+			addCharacterToList('ghost-bf', 0);
+			
+			boyfriend.visible = false;
+			boyfriend = boyfriendMap.get('ghost-bf');
+			if(!boyfriend.alreadyLoaded) {
+				boyfriend.alpha = 1;
+				boyfriend.alreadyLoaded = true;
+			}
+			boyfriend.visible = true;
+
 			new FlxTimer().start(2, function(swagTimer:FlxTimer)
 			{
+				addCharacterToList('pac-bf', 0);
+			
+				boyfriend.visible = false;
+				boyfriend = boyfriendMap.get('pac-bf');
+				if(!boyfriend.alreadyLoaded) {
+					boyfriend.alpha = 1;
+					boyfriend.alreadyLoaded = true;
+				}
+				boyfriend.visible = true;
+
 				ghostlyhealth++;
 			});
 		}
-		if (ghostlyhealth <= 0)
+		if (ghostlyhealth <= 0 && curStage == 'pacbg') 
 		{
 			health = -1000;
 		}
@@ -3542,8 +3566,12 @@ class PlayState extends MusicBeatState
 		trace(daNote.missHealth);
 		songMisses++;
 		ghostlyhealth--;
+		noteMissed = true;
 		vocals.volume = 0;
 		RecalculateRating();
+
+		if (curStage == 'pacbg'){
+		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
 
 		var animToPlay:String = '';
 		switch (Math.abs(daNote.noteData) % 4)
@@ -3585,8 +3613,12 @@ class PlayState extends MusicBeatState
 				if(ghostMiss) ghostMisses++;
 				songMisses++;
 				ghostlyhealth--;
+				noteMissed = true;
 			}
 			RecalculateRating();
+
+			if (curStage == 'pacbg'){
+				FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
