@@ -3140,7 +3140,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new MainMenuState());
+					MusicBeatState.switchState(new PacMainMenu());
 
 					// if ()
 					if(!usedPractice) {
