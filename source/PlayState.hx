@@ -231,7 +231,6 @@ class PlayState extends MusicBeatState
 	public var songNameTxt:FlxText;
 	public var ghostlyhealth:Int = 2;
 	public var invincible:Bool = false;
-	public var pacded:FlxSound;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1142,7 +1141,6 @@ class PlayState extends MusicBeatState
 						inCutscene = true;
 						FlxG.sound.play(Paths.sound('pactheme'), 1);
 						pacTextCountdown.visible = true;
-						pacded = new FlxSound().loadEmbedded(Paths.voices('pacdead'));
 						snapCamFollowToPos(640, 340);
 						pacclydeghost.visible = false;
 						paccyanghost.visible = false;
@@ -1171,7 +1169,6 @@ class PlayState extends MusicBeatState
 		if (curStage == 'pacbg' && ClientPrefs.skipCountdown)
 		{
 			snapCamFollowToPos(640, 340);
-			pacded =  new FlxSound().loadEmbedded(Paths.voices('pacdead'));
 		}
 
 		RecalculateRating();
@@ -2008,11 +2005,14 @@ class PlayState extends MusicBeatState
 		vocals.stop();
 		FlxG.sound.music.stop();
 
-		pacded.play();
-
-		new FlxTimer().start(2, function(swagTimer:FlxTimer)
-		{
-			MusicBeatState.resetState();
+		FlxTween.tween(boyfriend, {alpha: 0}, 1.8, {
+			onComplete: function(twn:FlxTween)
+			{
+				new FlxTimer().start(0.2, function(swagTimer:FlxTimer)
+				{
+					MusicBeatState.resetState();
+				});
+			}
 		});
 	}
 
@@ -3604,6 +3604,9 @@ class PlayState extends MusicBeatState
 		if (curStage == 'pacbg'){
 		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);
 		}
+		if (curStage == 'pacbg' && ghostlyhealth == 1){
+		FlxG.sound.play(Paths.sound('pacdead'), 1, false);
+		}
 
 		var animToPlay:String = '';
 		switch (Math.abs(daNote.noteData) % 4)
@@ -3651,6 +3654,9 @@ class PlayState extends MusicBeatState
 
 			if (curStage == 'pacbg'){
 				FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
+			if (curStage == 'pacbg' && ghostlyhealth == 1){
+				FlxG.sound.play(Paths.sound('pacdead'), 0.75, false);
+				}
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
