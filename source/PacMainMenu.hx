@@ -22,7 +22,7 @@ import editors.MasterEditorMenu;
 
 using StringTools;
 
-class PacMainMenu extends MusicBeatState
+class PacMainMenu extends MusicBeatState //kinda just took the normal main menu and made some changes to its code, and it worked well lol\\
 {
     public static var modVer:String = '1.0';
     public static var curSelected:Int = 0;
@@ -37,7 +37,7 @@ class PacMainMenu extends MusicBeatState
     {
         #if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Main Menu", null);
+		DiscordClient.changePresence("In Main Menu", null);
 		#end
 
         camGame = new FlxCamera();
@@ -54,7 +54,7 @@ class PacMainMenu extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
+		add(bg); //i'll switch this later\\
 
 		var border:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('border'));
 		border.scrollFactor.set();
@@ -89,7 +89,12 @@ class PacMainMenu extends MusicBeatState
                     case 2:
                         spr.offset.y = -60;
                 }
-            });
+
+                if (spr.ID == curSelected)
+                {
+                    spr.color = FlxColor.RED;
+                }
+            }); // for positioning the buttons
 
         var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, modVer, 12);
         versionShit.scrollFactor.set();
@@ -139,6 +144,7 @@ class PacMainMenu extends MusicBeatState
                                 PlayState.storyWeek = 1;
                                 PlayState.storyDifficulty = 2;
                                 PlayState.storyPlaylist = ['Pellets', 'Mazes'];
+                                FreeplayState.destroyFreeplayVocals();
                                 LoadingState.loadAndSwitchState(new PlayState());
                             case 'freeplay':
                                 MusicBeatState.switchState(new FreeplayState());
@@ -163,7 +169,7 @@ class PacMainMenu extends MusicBeatState
         menuStuff.forEach(function(spr:FlxSprite)
             {
                 spr.screenCenter(X);
-            });
+            }); // might remove this later
     }
 
     function changeItem(skullemoji:Int = 0) 

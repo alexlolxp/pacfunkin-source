@@ -230,7 +230,6 @@ class PlayState extends MusicBeatState
 	public var retroScore:FlxText;
 	public var songNameTxt:FlxText;
 	public var ghostlyhealth:Int = 2;
-	public var noteMissed:Bool = false;
 	public var invincible:Bool = false;
 
 	public static var campaignScore:Int = 0;
@@ -850,7 +849,7 @@ class PlayState extends MusicBeatState
 		doof.nextDialogueThing = startNextDialogue;
 		doof.skipDialogueThing = skipDialogue;
 
-		pacTextCountdown = new FlxText(0, 325, 400, null, 32);
+		pacTextCountdown = new FlxText(0, 345, 400, null, 32);
 		pacTextCountdown.setFormat(Paths.font("emulogic.ttf"), 27, FlxColor.YELLOW, CENTER);
 		pacTextCountdown.scrollFactor.set();
 		pacTextCountdown.screenCenter(X);
@@ -862,7 +861,7 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition = -5000;
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
-		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
+		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 130;
 		strumLine.scrollFactor.set();
 
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
@@ -992,6 +991,8 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		scoreTxt.antialiasing = false;
+		if (ClientPrefs.downScroll)
+			scoreTxt.y += 20;
 		add(scoreTxt);
 		add(timeTxt);
 
@@ -1140,7 +1141,7 @@ class PlayState extends MusicBeatState
 						inCutscene = true;
 						FlxG.sound.play(Paths.sound('pactheme'), 1);
 						pacTextCountdown.visible = true;
-						snapCamFollowToPos(640, 360);
+						snapCamFollowToPos(640, 340);
 						pacclydeghost.visible = false;
 						paccyanghost.visible = false;
 						pacpinkghost.visible = false;
@@ -1167,7 +1168,7 @@ class PlayState extends MusicBeatState
 
 		if (curStage == 'pacbg' && ClientPrefs.skipCountdown)
 		{
-			snapCamFollowToPos(640, 360);
+			snapCamFollowToPos(640, 340);
 		}
 
 		RecalculateRating();
@@ -2002,8 +2003,6 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
-		noteMissed = false;
-
 		callOnLuas('onUpdate', [elapsed]);
 
 		if (ghostlyhealth < 2 && curStage == 'pacbg')
@@ -2017,6 +2016,13 @@ class PlayState extends MusicBeatState
 				boyfriend.alreadyLoaded = true;
 			}
 			boyfriend.visible = true;
+
+			invincible = true;
+
+			new FlxTimer().start(0.5, function(swagTimer:FlxTimer)
+			{
+				invincible = false;
+			});
 
 			new FlxTimer().start(2, function(swagTimer:FlxTimer)
 			{
@@ -2150,7 +2156,7 @@ class PlayState extends MusicBeatState
 				}
 			case 'pacbg':
 				camFollow.x = 640;
-				camFollow.y = 360;
+				camFollow.y = 340;
 				gf.visible = false;
 				gf.screenCenter();
 				healthBarBG.alpha = 0;
@@ -3565,12 +3571,12 @@ class PlayState extends MusicBeatState
 		health -= daNote.missHealth; //For testing purposes
 		trace(daNote.missHealth);
 		songMisses++;
-		ghostlyhealth--;
-		noteMissed = true;
+		if (!invincible)
+			ghostlyhealth--;
 		vocals.volume = 0;
 		RecalculateRating();
 
-		if (curStage == 'pacbg'){
+		if (curStage == 'pacbg' && !invincible){
 		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
 
 		var animToPlay:String = '';
@@ -3612,8 +3618,8 @@ class PlayState extends MusicBeatState
 			if(!endingSong) {
 				if(ghostMiss) ghostMisses++;
 				songMisses++;
-				ghostlyhealth--;
-				noteMissed = true;
+				if (!invincible)
+					ghostlyhealth--;
 			}
 			RecalculateRating();
 
