@@ -96,7 +96,7 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
                 }
             }); // for positioning the buttons
 
-        var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, modVer, 12);
+        var versionShit:FlxText = new FlxText(162, FlxG.height - 190, 0, modVer, 12);
         versionShit.scrollFactor.set();
         versionShit.setFormat("Emulogic", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(versionShit);
@@ -129,6 +129,7 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
             if (controls.ACCEPT)
             {
                 selectedThing = true;
+                FlxG.sound.play(Paths.sound('confirmMenu'));
 
                 menuStuff.forEach(function(spr:FlxText)
                 {

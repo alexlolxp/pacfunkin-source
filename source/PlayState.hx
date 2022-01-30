@@ -231,6 +231,7 @@ class PlayState extends MusicBeatState
 	public var songNameTxt:FlxText;
 	public var ghostlyhealth:Int = 2;
 	public var invincible:Bool = false;
+	public var pacded:FlxSound;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1141,6 +1142,7 @@ class PlayState extends MusicBeatState
 						inCutscene = true;
 						FlxG.sound.play(Paths.sound('pactheme'), 1);
 						pacTextCountdown.visible = true;
+						pacded = new FlxSound().loadEmbedded(Paths.voices('pacdead'));
 						snapCamFollowToPos(640, 340);
 						pacclydeghost.visible = false;
 						paccyanghost.visible = false;
@@ -1169,6 +1171,7 @@ class PlayState extends MusicBeatState
 		if (curStage == 'pacbg' && ClientPrefs.skipCountdown)
 		{
 			snapCamFollowToPos(640, 340);
+			pacded =  new FlxSound().loadEmbedded(Paths.voices('pacdead'));
 		}
 
 		RecalculateRating();
@@ -1991,6 +1994,28 @@ class PlayState extends MusicBeatState
 		vocals.play();
 	}
 
+	function pacDeath() 
+	{
+		FlxTween.tween(camHUD, {alpha: 0}, 0.2);
+		
+		boyfriend.stunned = true;
+		deathCounter++;
+
+		persistentUpdate = false;
+		persistentDraw = false;
+		paused = true;
+
+		vocals.stop();
+		FlxG.sound.music.stop();
+
+		pacded.play();
+
+		new FlxTimer().start(2, function(swagTimer:FlxTimer)
+		{
+			MusicBeatState.resetState();
+		});
+	}
+
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
@@ -2019,7 +2044,7 @@ class PlayState extends MusicBeatState
 
 			invincible = true;
 
-			new FlxTimer().start(0.5, function(swagTimer:FlxTimer)
+			new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
 			{
 				invincible = false;
 			});
@@ -2041,7 +2066,7 @@ class PlayState extends MusicBeatState
 		}
 		if (ghostlyhealth <= 0 && curStage == 'pacbg') 
 		{
-			health = -1000;
+			pacDeath();
 		}
 
 		switch (curStage)
@@ -3571,13 +3596,14 @@ class PlayState extends MusicBeatState
 		health -= daNote.missHealth; //For testing purposes
 		trace(daNote.missHealth);
 		songMisses++;
-		if (!invincible)
+		//if (!invincible)
 			ghostlyhealth--;
 		vocals.volume = 0;
 		RecalculateRating();
 
-		if (curStage == 'pacbg' && !invincible){
-		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
+		if (curStage == 'pacbg'){
+		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);
+		}
 
 		var animToPlay:String = '';
 		switch (Math.abs(daNote.noteData) % 4)
@@ -3618,7 +3644,7 @@ class PlayState extends MusicBeatState
 			if(!endingSong) {
 				if(ghostMiss) ghostMisses++;
 				songMisses++;
-				if (!invincible)
+				//if (!invincible)
 					ghostlyhealth--;
 			}
 			RecalculateRating();
