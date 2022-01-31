@@ -2005,10 +2005,10 @@ class PlayState extends MusicBeatState
 		vocals.stop();
 		FlxG.sound.music.stop();
 
-		FlxTween.tween(boyfriend, {alpha: 0}, 1.8, {
+		FlxTween.tween(boyfriend, {alpha: 0}, 1, {
 			onComplete: function(twn:FlxTween)
 			{
-				new FlxTimer().start(0.2, function(swagTimer:FlxTimer)
+				new FlxTimer().start(1, function(swagTimer:FlxTimer)
 				{
 					MusicBeatState.resetState();
 				});
@@ -2041,13 +2041,6 @@ class PlayState extends MusicBeatState
 				boyfriend.alreadyLoaded = true;
 			}
 			boyfriend.visible = true;
-
-			invincible = true;
-
-			new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
-			{
-				invincible = false;
-			});
 
 			new FlxTimer().start(2, function(swagTimer:FlxTimer)
 			{
@@ -3594,10 +3587,9 @@ class PlayState extends MusicBeatState
 		});
 
 		health -= daNote.missHealth; //For testing purposes
+		ghostlyhealth--;
 		trace(daNote.missHealth);
 		songMisses++;
-		//if (!invincible)
-			ghostlyhealth--;
 		vocals.volume = 0;
 		RecalculateRating();
 
@@ -3637,6 +3629,7 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
+			ghostlyhealth--;
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
@@ -3647,8 +3640,6 @@ class PlayState extends MusicBeatState
 			if(!endingSong) {
 				if(ghostMiss) ghostMisses++;
 				songMisses++;
-				//if (!invincible)
-					ghostlyhealth--;
 			}
 			RecalculateRating();
 
