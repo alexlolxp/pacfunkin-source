@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.keyboard.FlxKey;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -32,6 +33,16 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
     private var camGame:FlxCamera;
 
     var menuOptions:Array<String> = ['play!', 'freeplay', 'options'];
+
+    var tetrisCode:Array<Dynamic> = [
+		[FlxKey.T], 
+		[FlxKey.E], 
+		[FlxKey.T], 
+		[FlxKey.R],
+        [FlxKey.I],
+		[FlxKey.S]];
+	
+    var tetrisCodeOrder:Int = 0;
 
     override function create() 
     {
@@ -108,6 +119,39 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
 
     override function update(elapsed:Float)
     {
+        if (FlxG.keys.justPressed.ANY) 
+        {
+			var correctkeylol:Bool = false;
+			for (i in 0...tetrisCode[tetrisCodeOrder].length) 
+            {
+				if (FlxG.keys.checkStatus(tetrisCode[tetrisCodeOrder][i], JUST_PRESSED))
+					correctkeylol = true;
+			}
+			if (correctkeylol) 
+            {
+				if (tetrisCodeOrder == (tetrisCode.length - 1)) 
+                {
+					PlayState.SONG = Song.loadFromJson(Highscore.formatSong('Mazes', 2), 'mazes');
+					PlayState.isStoryMode = false;
+					PlayState.storyDifficulty = 2;
+					LoadingState.loadAndSwitchState(new PlayState());
+				} 
+                else 
+                {
+					tetrisCodeOrder++;		
+			    }
+			} 
+            else 
+            {
+				tetrisCodeOrder = 0;
+				for (i in 0...tetrisCode[0].length) 
+                {
+					if (FlxG.keys.checkStatus(tetrisCode[0][i], JUST_PRESSED))
+						tetrisCodeOrder = 1;
+				}
+			}
+		}
+
         if (!selectedThing)
         {
             if (controls.UI_UP_P)
