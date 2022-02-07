@@ -3596,7 +3596,7 @@ class PlayState extends MusicBeatState
 		if (curStage == 'pacbg'){
 		FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);
 		}
-		if (curStage == 'pacbg' && ghostlyhealth == 1){
+		if (curStage == 'pacbg' && ghostlyhealth <= 0){
 		FlxG.sound.play(Paths.sound('pacdead'), 1, false);
 		}
 
@@ -3645,8 +3645,8 @@ class PlayState extends MusicBeatState
 
 			if (curStage == 'pacbg'){
 				FlxG.sound.play(Paths.sound('notpacman'), 0.75, false);}
-			if (curStage == 'pacbg' && ghostlyhealth == 1){
-				FlxG.sound.play(Paths.sound('pacdead'), 0.75, false);
+			if (curStage == 'pacbg' && ghostlyhealth <= 0){
+				FlxG.sound.play(Paths.sound('pacdead'), 1, false);
 				}
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
