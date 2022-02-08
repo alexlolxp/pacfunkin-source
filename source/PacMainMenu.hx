@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 #if desktop
 import Discord.DiscordClient;
@@ -43,6 +44,7 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
 		[FlxKey.S]];
 	
     var tetrisCodeOrder:Int = 0;
+    var logo:FlxSprite;
 
     override function create() 
     {
@@ -73,6 +75,24 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
 		border.screenCenter();
 		border.antialiasing = ClientPrefs.globalAntialiasing;
 		add(border);
+
+        logo = new FlxSprite(0, 100).loadGraphic(Paths.image('pac-funkin'));
+		logo.scrollFactor.set();
+		logo.updateHitbox();
+		logo.screenCenter(X);
+		logo.antialiasing = false;
+        logo.setGraphicSize(Std.int(logo.width * 0.5));
+		add(logo);
+
+        FlxTween.angle(logo, logo.angle, -10, 2, {ease: FlxEase.expoInOut});
+
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+        {
+                if (logo.angle == -10)
+                    FlxTween.angle(logo, logo.angle, 10, 2, {ease: FlxEase.quartInOut});
+                else
+                    FlxTween.angle(logo, logo.angle, -10, 2, {ease: FlxEase.quartInOut});
+        }, 0);
 
         menuStuff = new FlxTypedGroup<FlxText>();
         add(menuStuff);
