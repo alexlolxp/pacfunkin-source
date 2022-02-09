@@ -84,14 +84,14 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
         logo.setGraphicSize(Std.int(logo.width * 0.5));
 		add(logo);
 
-        FlxTween.angle(logo, logo.angle, -10, 2, {ease: FlxEase.expoInOut});
+        FlxTween.angle(logo, logo.angle, -2, 2, {ease: FlxEase.expoInOut});
 
 		new FlxTimer().start(1, function(tmr:FlxTimer)
         {
-                if (logo.angle == -10)
-                    FlxTween.angle(logo, logo.angle, 10, 2, {ease: FlxEase.quartInOut});
+                if (logo.angle == -2)
+                    FlxTween.angle(logo, logo.angle, 2, 2, {ease: FlxEase.quartInOut});
                 else
-                    FlxTween.angle(logo, logo.angle, -10, 2, {ease: FlxEase.quartInOut});
+                    FlxTween.angle(logo, logo.angle, -2, 2, {ease: FlxEase.quartInOut});
         }, 0);
 
         menuStuff = new FlxTypedGroup<FlxText>();
