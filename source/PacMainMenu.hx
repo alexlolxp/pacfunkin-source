@@ -46,12 +46,59 @@ class PacMainMenu extends MusicBeatState //kinda just took the normal main menu 
     var tetrisCodeOrder:Int = 0;
     var logo:FlxSprite;
 
+    public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
+	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
+	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
+
     override function create() 
     {
         #if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In Main Menu", null);
 		#end
+
+        FlxG.game.focusLostFramerate = ClientPrefs.framerate;
+		FlxG.sound.muteKeys = muteKeys;
+		FlxG.sound.volumeDownKeys = volumeDownKeys;
+		FlxG.sound.volumeUpKeys = volumeUpKeys;
+
+		PlayerSettings.init();
+
+        if (FlxG.sound.music == null)
+            FlxG.sound.playMusic(Paths.music('freakyMenu'));
+
+		FlxG.save.bind('funkin', 'ninjamuffin99');
+		ClientPrefs.loadPrefs();
+
+		Highscore.load();
+
+		if (FlxG.save.data.weekCompleted != null)
+		{
+			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
+		}
+
+		FlxG.mouse.visible = false;
+		#if FREEPLAY
+		MusicBeatState.switchState(new FreeplayState());
+		#elseif CHARTING
+		MusicBeatState.switchState(new ChartingState());
+		#else
+		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
+			#if desktop
+			DiscordClient.initialize();
+			Application.current.onExit.add (function (exitCode) {
+				DiscordClient.shutdown();
+			});
+		#end
+		} else {
+			#if desktop
+			DiscordClient.initialize();
+			Application.current.onExit.add (function (exitCode) {
+				DiscordClient.shutdown();
+			});
+		    #end
+        #end
+		}
 
         camGame = new FlxCamera();
         FlxG.cameras.reset(camGame);
